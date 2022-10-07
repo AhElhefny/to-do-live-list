@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('login', [\App\Http\Controllers\admin\AuthController::class,'login'])->name('login');
+
 Route::resource('users', \App\Http\Controllers\admin\UserController::class);
 Route::get('home', [\App\Http\Controllers\admin\UserController::class,'index'])->name('home');
 

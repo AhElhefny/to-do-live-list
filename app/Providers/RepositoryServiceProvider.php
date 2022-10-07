@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Contracts\IAuthRepository;
+use App\Repositories\SQL\AuthRepository;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,6 +16,10 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind(
+            IAuthRepository::class,
+                    AuthRepository::class
+        );
 
         foreach ($this->getModels() as $model) {
             $this->app->bind(
