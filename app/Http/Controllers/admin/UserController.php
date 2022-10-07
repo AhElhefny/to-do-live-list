@@ -16,7 +16,7 @@ class UserController extends AdminBaseController
      */
     public function __construct(IUserRepository $userRepo)
     {
-        parent::__construct($userRepo, 'welcome');
+        parent::__construct($userRepo, 'admin.users');
     }
 
     /**

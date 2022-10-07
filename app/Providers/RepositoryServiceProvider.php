@@ -2,12 +2,8 @@
 
 namespace App\Providers;
 
-use App\Repositories\Contracts\ModelInterface;
-use App\Repositories\SQL\AbstractModelInterface;
-use App\Repositories\SQL\AbstractModelRepository;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\File;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
