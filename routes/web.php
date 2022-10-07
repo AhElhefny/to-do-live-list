@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\website\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\admin\UserController::class,'index']);
+Route::resource('users', \App\Http\Controllers\admin\UserController::class);
+Route::get('home', [\App\Http\Controllers\admin\UserController::class,'index'])->name('home');
 
 
 
