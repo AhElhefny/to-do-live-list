@@ -23,6 +23,10 @@ class User extends Authenticatable
         'password',
     ];
 
+    protected $filters = [
+        'id'
+    ];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -42,21 +46,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function groups(){
-        return $this->hasMany(Group::class);
+
+    public function getFilters()
+    {
+        return $this->filters ?? [];
     }
 
-    public function tasks(){
-        return $this->hasMany(Task::class);
+    public function scopeOfId($query,$id){
+        return $query;
     }
-
-//    public function getJWTIdentifier()
-//    {
-//        return $this->getKey();
-//    }
-//
-//    public function getJWTCustomClaims()
-//    {
-//        return [];
-//    }
 }
