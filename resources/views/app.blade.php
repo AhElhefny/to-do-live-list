@@ -27,19 +27,23 @@
 
     </head>
     <body class="antialiased">
-<div class="container-scroller">
-    @include('layouts.sidebar')
-    <div class="container-fluid page-body-wrapper">
-        @include('layouts.haed')
-        <div class="main-panel">
-            <div class="content-wrapper">
-                @yield('breadcrumb')
-                @yield('content')
+        <div class="container-scroller">
+            @if(!isset($required))
+            @include('layouts.sidebar')
+            <div class="container-fluid page-body-wrapper">
+                @include('layouts.haed')
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                        @yield('breadcrumb')
+                        @yield('content')
+                    </div>
+                    @include('layouts.footer')
+                </div>
             </div>
-            @include('layouts.footer')
+            @else
+                @yield('content')
+            @endif
         </div>
-    </div>
-</div>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.2/js/bootstrap.min.js" integrity="sha512-5BqtYqlWfJemW5+v+TZUs22uigI8tXeVah5S/1Z6qBLVO7gakAOtkOzUtgq6dsIo5c0NJdmGPs0H9I+2OHUHVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
