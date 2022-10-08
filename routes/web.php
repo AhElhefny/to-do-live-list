@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\admin\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,11 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('login', [\App\Http\Controllers\admin\AuthController::class,'login'])->name('login');
-
-Route::resource('users', \App\Http\Controllers\admin\UserController::class);
-Route::get('home', [\App\Http\Controllers\admin\UserController::class,'index'])->name('home');
 
 
+Route::resource('users', UserController::class);
+Route::get('home', [UserController::class,'index'])->name('home');
+
+
+//                  admin Routes                          //
+Route::group(['prefix'=>'admin'], __DIR__ . '/admin.php');
 
 
