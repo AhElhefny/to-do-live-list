@@ -1,11 +1,10 @@
 @extends('app')
 @section('title')
-    Users
+    Home
 @endsection
 @section('breadcrumb')
-    @include('layouts.breadcrumb',['links' => ['title' => 'Users','linksData' => [
+    @include('layouts.breadcrumb',['links' => ['title' => 'Home','linksData' => [
         'Home'=>'dashboard',
-        'Users'=>'users.index',
     ]]])
 @endsection
 @section('content')

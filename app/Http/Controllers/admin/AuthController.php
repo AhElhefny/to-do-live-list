@@ -6,31 +6,35 @@ use App\Http\Controllers\AdminBaseController;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\IAuthRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class AuthController extends AdminBaseController
 {
+    protected $authRepo;
     public function __construct(IAuthRepository $authRepo)
     {
-        parent::__construct($authRepo, 'admin.auth.login');
+        $this->authRepo = $authRepo;
+        parent::__construct($authRepo, 'auth.login');
     }
 
     public function login(Request $request)
     {
-        try {
-            $data = $request->validate([
-                'email' => ['required', 'email', 'min:4', 'max:255', Rule::exist('users', 'email')],
-                'password' => ['required', 'min:6', 'max:100']
-            ]);
+        $data = $request->all();
+        $validator = $this->authRepo->login($data);
 
-            $remember = $request->rememberMe ? true : false;
-            if (!auth()->attempt(['email' => $data['email'], 'password' => $data['password']], $remember)) {
-                return back()->withInput(['email' => $request->email]);
-            }
-            session()->regenerate();
-            return redirect()->route('')->with(['msg' => 'U R Logged in successfully']);
-        } catch (\Exception $ex) {
-            return back()->withInput(['email' => $request->email])->withErrors($ex);
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput();
         }
+        if (!auth()->attempt($validator->validated())) {
+            return back()->with(['error' => 'Your email or password are invalid']);
+        }
+        session()->regenerate();
+        return redirect()->route('dashboard')->with(['success' => 'Logged in successfully']);
+    }
+
+    public function destroy(){
+        $this->authRepo->logout();
+        return redirect()->route('login')->with(['success' => 'Success logged out']);
     }
 }

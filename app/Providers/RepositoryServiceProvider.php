@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Repositories\Contracts\IAuthRepository;
+use App\Repositories\Contracts\IHomeRepository;
 use App\Repositories\SQL\AuthRepository;
+use App\Repositories\SQL\HomeRepository;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,6 +21,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             IAuthRepository::class,
                     AuthRepository::class
+        );
+        $this->app->bind(
+            IHomeRepository::class,
+            HomeRepository::class
         );
 
         foreach ($this->getModels() as $model) {

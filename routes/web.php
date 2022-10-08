@@ -16,10 +16,8 @@ use App\Http\Controllers\admin\UserController;
 
 
 Route::resource('users', UserController::class);
-Route::get('home', [UserController::class,'index'])->name('home');
-
 
 //                  admin Routes                          //
-Route::group(['prefix'=>'admin'], __DIR__ . '/admin.php');
+Route::group([], __DIR__ . '/admin.php');
 
 
