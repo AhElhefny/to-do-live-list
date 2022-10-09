@@ -19,7 +19,9 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
 
-        foreach ($this->getModels() as $model) {
+        $models = $this->getModels();
+        $models[] = 'Role';
+        foreach ($models as $model) {
             $this->app->bind(
                 "App\Repositories\Contracts\I{$model}Repository",
                 "App\Repositories\SQL\\${model}Repository"
