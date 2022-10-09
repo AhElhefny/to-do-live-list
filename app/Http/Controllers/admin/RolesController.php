@@ -32,14 +32,11 @@ class RolesController extends Controller
     {
         if (!$this->authorize('roles'))
             abort(405);
+        if (\request()->ajax()){
+            $data = Role::select('id','name')->get();
+            return Datatables::of($data)->make(true);
+        }
         return view('admin.roles.roles');
-    }
-
-    public function datatable_data(Request $request){
-        if (!$this->authorize('roles'))
-            abort(405);
-        $data = Role::select('id','name')->get();
-        return Datatables::of($data)->make(true);
     }
 
     /**

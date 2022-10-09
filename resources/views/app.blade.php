@@ -26,6 +26,8 @@
         <!-- endinject -->
         <!-- Layout styles -->
         <link rel="stylesheet" href="{{asset("css/style.css")}}">
+        <link rel="stylesheet" href="{{asset("vendors/select2/select2.min.css")}}">
+        <link rel="stylesheet" href="{{asset("vendors/select2-bootstrap-theme/select2-bootstrap.min.css")}}">
         <!-- End layout styles -->
         <link rel="shortcut icon" href="{{asset("images/favicon.png")}}" />
 
@@ -76,6 +78,9 @@
        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js" integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="{{asset("vendors/select2/select2.min.js")}}"></script>
+        <script src="{{asset("js/select2.js")}}"></script>
+
         @yield('scripts')
        <!-- End custom js for this page -->
     </body>

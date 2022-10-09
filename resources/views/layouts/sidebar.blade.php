@@ -73,10 +73,10 @@
             <div class="collapse" id="auth">
                 <ul class="nav flex-column sub-menu">
                     @can('users')
-                        <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html">Users List</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{route('users.index')}}">Users List</a></li>
                     @endcan
                     @can('add user')
-                        <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html">Add User</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{route('users.create')}}">Add User</a></li>
                     @endcan
                 </ul>
             </div>

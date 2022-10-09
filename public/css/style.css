@@ -21142,5 +21142,11 @@ div.tagsinput {
     display: flex;
     align-items: baseline;
 }
-
+.select2  .selection .select2-selection--single{
+    padding:6px !important;
+    height: 40px;
+    background: #2A3038;
+    color: #fff;
+    border:none
+}
 /*# sourceMappingURL=maps/style.css.map */

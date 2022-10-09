@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Repositories\Contracts\IModelRepository;
+use Yajra\DataTables\Facades\DataTables;
 
 class AdminBaseController extends Controller
 {
@@ -22,7 +23,6 @@ class AdminBaseController extends Controller
         $this->repo = $repo;
         $this->view = $view;
 
-        // Include embedded data
         if (request()->has('embed')) {
             $this->parseIncludes(request('embed'));
         }
@@ -34,7 +34,7 @@ class AdminBaseController extends Controller
     public function index()
     {
         $page = 1;
-        $limit = 0;
+        $limit = 10;
         $order = 'id';
         $applyOrder = false;
         $orderDir = "desc";
@@ -52,7 +52,7 @@ class AdminBaseController extends Controller
         }
 
         if (request()->has('limit')) {
-            $limit = request('limit');
+            $limit = request('limit') ?? 10;
         }
 
         if (request()->has('order')) {
@@ -99,7 +99,12 @@ class AdminBaseController extends Controller
      */
     protected function respondWithCollection($collection, array $headers = [])
     {
+//        dd($collection);
         $data = $collection;
+        if (request()->ajax()){
+            return Datatables::of($data)->make(true);
+
+        }
         return view($this->view,compact('data'));
     }
 

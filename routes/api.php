@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('roles-datatable',[\App\Http\Controllers\admin\RolesController::class,'datatable_data']);
+Route::get('roles',[\App\Http\Controllers\admin\RolesController::class,'index']);
+Route::get('users',[\App\Http\Controllers\admin\UserController::class,'index']);
 
 
 
