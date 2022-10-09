@@ -18,14 +18,6 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(
-            IAuthRepository::class,
-                    AuthRepository::class
-        );
-        $this->app->bind(
-            IHomeRepository::class,
-            HomeRepository::class
-        );
 
         foreach ($this->getModels() as $model) {
             $this->app->bind(

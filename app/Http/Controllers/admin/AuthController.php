@@ -2,27 +2,27 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\AdminBaseController;
 use App\Http\Controllers\Controller;
-use App\Repositories\Contracts\IAuthRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class AuthController extends AdminBaseController
+class AuthController extends Controller
 {
-    protected $authRepo;
-    public function __construct(IAuthRepository $authRepo)
-    {
-        $this->authRepo = $authRepo;
-        parent::__construct($authRepo, 'auth.login');
+
+    public function index(){
+        return view('auth.login');
     }
 
     public function login(Request $request)
     {
-        $data = $request->all();
-        $validator = $this->authRepo->login($data);
+        $rules = [
+            'email' => ['required', 'email', 'min:4', 'max:255', Rule::exists('users', 'email')],
+            'password' => ['required', 'min:6', 'max:100']
+        ];
 
+        $validator = Validator::make($request->all(),$rules);
         if($validator->fails()){
             return back()->withErrors($validator)->withInput();
         }
@@ -34,7 +34,7 @@ class AuthController extends AdminBaseController
     }
 
     public function destroy(){
-        $this->authRepo->logout();
+        Auth::logout();
         return redirect()->route('login')->with(['success' => 'Success logged out']);
     }
 }

@@ -54,13 +54,14 @@
             </div>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{route('dashboard')}}">
               <span class="menu-icon">
                 <i class="mdi mdi-speedometer"></i>
               </span>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
+        @can('users')
         <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <span class="menu-icon">
@@ -71,13 +72,36 @@
             </a>
             <div class="collapse" id="auth">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
+                    @can('users')
+                        <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html">Users List</a></li>
+                    @endcan
+                    @can('add user')
+                        <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html">Add User</a></li>
+                    @endcan
                 </ul>
             </div>
         </li>
+        @endcan
+        @can('roles')
+        <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#roles" aria-expanded="false" aria-controls="auth">
+              <span class="menu-icon">
+                <i class="mdi mdi-security"></i>
+              </span>
+                <span class="menu-title">Roles</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="roles">
+                <ul class="nav flex-column sub-menu">
+                    @can('roles')
+                        <li class="nav-item"> <a class="nav-link" href="{{route('roles.index')}}">Roles List</a></li>
+                    @endcan
+                    @can('add role')
+                        <li class="nav-item"> <a class="nav-link" href="{{route('roles.create')}}">Add Role</a></li>
+                    @endcan
+                </ul>
+            </div>
+        </li>
+        @endcan
     </ul>
 </nav>
