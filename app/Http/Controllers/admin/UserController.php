@@ -7,7 +7,6 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Repositories\Contracts\IUserRepository;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
@@ -43,10 +42,8 @@ class UserController extends AdminBaseController
      */
     public function store(UserRequest $request){
         $data =$request->validated();
-        $u = new User();
-
         $data['userPhoto'] = $request->file('userPhoto') ?
-            $this->storeImage($request->file('userPhoto'),$u->folder) : '';
+            $this->storeImage($request->file('userPhoto'),User::$folder) : null;
 
         $user = $this->userRepo->create($data);
         $user->assignRole($request->input('role_id'));
@@ -84,9 +81,9 @@ class UserController extends AdminBaseController
     {
         $data = $request->validated();
 
-        $data['userPhoto'] = $request->file('userPhoto') ?
-            $this->storeImage($request->file('userPhoto'),$user->folder) : '';
-
+        if($request->file('userPhoto')){
+            $data['userPhoto'] = $this->storeImage($request->file('userPhoto'),User::$folder);
+        }
         $user = $this->userRepo->update($user,$data);
         DB::table('model_has_roles')->where('model_id',$user->id)->delete();
         $user->assignRole($request->input('role_id'));
@@ -96,17 +93,13 @@ class UserController extends AdminBaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  User $user
+     * @return RedirectResponse
      */
     public function destroy(User $user)
     {
-        if($user->userPhoto != $user->folder . '/' .$user->default_avatar &&
-            Storage::disk('siteImages')->exists($user->userPhoto)){
-            unlink(public_path('images/'. $user->userPhoto));
-        }
-
-        $user->delete();
+        $this->userRepo->deleteUserImageIfExist($user);
+        $this->userRepo->remove($user);
         return back()->with(['success' => 'User deleted successfully']);
     }
 }

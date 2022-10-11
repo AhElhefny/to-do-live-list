@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
             'role_id' => 'required',
             'email' => 'email|required',
             'userPhoto' =>'image',
-            'password' => $this->method() == 'POST' ? 'required|min:6|confirmed' : 'confirmed'
+            'password' => $this->method() == 'POST' ? 'required|min:6|confirmed' : 'nullable|confirmed|min:6'
         ];
     }
 }

@@ -16,7 +16,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
-    public $folder = "users images";
+    public static $folder = "users images";
     public $default_avatar ="default user.png";
 
     /**
@@ -46,6 +46,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    protected $appends = ['photo'];
 
     /**
      * The attributes that should be cast.
@@ -80,12 +81,12 @@ class User extends Authenticatable
         );
     }
 
-    public function userPhoto() :Attribute
-    {
+    public function photo():Attribute{
         return Attribute::make(
-            get: fn ($userPhoto)=> is_null($userPhoto) ?
-                $this->folder . '/' . $this->default_avatar :
-                $this->folder . '/' . $userPhoto
+            get: fn ($val)=> is_null($this->userPhoto) ?
+                asset('images/'.User::$folder . '/' . $this->default_avatar) :
+                asset('images/'.User::$folder . '/' . $this->userPhoto)
         );
     }
+
 }

@@ -32,6 +32,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Image</th>
                                 <th>Created At</th>
                                 <th>Action</th>
                             </tr>
@@ -60,6 +61,12 @@
                 columns: [
                     {data: 'name', name: 'name'},
                     {data: 'email', name: 'email'},
+                    {data: 'photo', name: 'photo',
+                        render:function (data) {
+                        console.log(data)
+                            return `<img style="width: 30px;height: 30px;" src="${data}" alt="user-image"/>`
+                        }
+                    },
                     {data: 'created_at', name: 'created_at'},
                     {data: 'id',
                         render:function (data,two,three){
