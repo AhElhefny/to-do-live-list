@@ -9,10 +9,13 @@ use App\Repositories\Contracts\IUserRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
+use App\Http\Services\HelperTrait;
 
 class UserController extends AdminBaseController
 {
+    use HelperTrait;
     protected IUserRepository $userRepo;
     /**
      * Instantiate a new controller instance.
@@ -39,9 +42,14 @@ class UserController extends AdminBaseController
      * @return RedirectResponse
      */
     public function store(UserRequest $request){
+        $data =$request->validated();
+        $u = new User();
 
-        $user = $this->userRepo->create($request->validated());
-        $user->assignRole($request->input('role'));
+        $data['userPhoto'] = $request->file('userPhoto') ?
+            $this->storeImage($request->file('userPhoto'),$u->folder) : '';
+
+        $user = $this->userRepo->create($data);
+        $user->assignRole($request->input('role_id'));
         return redirect()->route('users.index');
 
     }
@@ -74,9 +82,14 @@ class UserController extends AdminBaseController
      */
     public function update(UserRequest $request, User $user)
     {
-        $user = $this->userRepo->update($user,$request->validated());
+        $data = $request->validated();
+
+        $data['userPhoto'] = $request->file('userPhoto') ?
+            $this->storeImage($request->file('userPhoto'),$user->folder) : '';
+
+        $user = $this->userRepo->update($user,$data);
         DB::table('model_has_roles')->where('model_id',$user->id)->delete();
-        $user->assignRole($request->input('role'));
+        $user->assignRole($request->input('role_id'));
         return redirect()->route('users.index');
     }
 
@@ -88,6 +101,12 @@ class UserController extends AdminBaseController
      */
     public function destroy(User $user)
     {
+        if($user->userPhoto != $user->folder . '/' .$user->default_avatar &&
+            Storage::disk('siteImages')->exists($user->userPhoto)){
+            unlink(public_path('images/'. $user->userPhoto));
+        }
 
+        $user->delete();
+        return back()->with(['success' => 'User deleted successfully']);
     }
 }

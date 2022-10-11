@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('roles',[\App\Http\Controllers\admin\RolesController::class,'index']);
-Route::get('users',[\App\Http\Controllers\admin\UserController::class,'index']);
 
 
 

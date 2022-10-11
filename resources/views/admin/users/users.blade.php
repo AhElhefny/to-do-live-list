@@ -53,7 +53,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url :'/api/v1/users',
+                    url :"{{route('users.index')}}",
                     headers:{'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
                 },
                 "paging": true,
@@ -64,7 +64,7 @@
                     {data: 'id',
                         render:function (data,two,three){
                             if(three.id !== 1 && three.name !== 'admin'){
-                                let form = `<form id="delete-role-form-${data}" action="users/${data}" method="POST">
+                                let form = `<form id="delete-user-form-${data}" action="users/${data}" method="POST">
                                     @csrf
                                 @method('DELETE')
                                 </form>`
@@ -93,27 +93,9 @@
         });
 
         $(document).on('click','.delRow',function (){
-            swalDel($(this).data('id'));
+            let form = $(`#delete-user-form-${$(this).data('id')}`)
+            swalDel($(this).data('id'),form);
         });
-        function swalDel(id){
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You will not be able to recover this imaginary file!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Yes, I am sure!',
-                cancelButtonText: "No, cancel it!",
-                closeOnConfirm: false,
-                closeOnCancel: false
-            }).then((result) => {
-                if (result.isConfirmed){
-                    $('#delete-role-form-'+id).submit();
-                } else {
-                    Swal.fire("Cancelled", "canceled successfully!", "error");
-                }
-            })
-        }
     </script>
 @endsection
 

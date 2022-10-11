@@ -31,6 +31,7 @@
                                 <thead>
                                 <tr>
                                     <th>Name</th>
+                                    <th>Users Count</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -51,12 +52,17 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url :'/api/v1/roles',
+                    url :'{{route('roles.index')}}',
                     headers:{'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
                 },
                 "paging": true,
                 columns: [
                     {data: 'name', name: 'name'},
+                    {data: 'users_count', name:'users_count',
+                        render:function (data){
+                            return `<i class="fa fa-user mr-1"></i> ${data} `;
+                        }
+                    },
                     {data: 'id',
                         render:function (data,two,three){
                             if(three.id !== 1 && three.name !== 'super_admin'){
@@ -89,26 +95,8 @@
         });
 
         $(document).on('click','.delRow',function (){
-            swalDel($(this).data('id'));
+            let form = $(`#delete-role-form-${$(this).data('id')}`);
+            swalDel($(this).data('id'),form);
         });
-        function swalDel(id){
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You will not be able to recover this imaginary file!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Yes, I am sure!',
-                cancelButtonText: "No, cancel it!",
-                closeOnConfirm: false,
-                closeOnCancel: false
-            }).then((result) => {
-                if (result.isConfirmed){
-                  $('#delete-role-form-'+id).submit();
-                } else {
-                    Swal.fire("Cancelled", "canceled successfully!", "error");
-                }
-            })
-        }
     </script>
 @endsection

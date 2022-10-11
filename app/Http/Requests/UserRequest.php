@@ -24,14 +24,12 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->method() == 'POST'){
-            $password = 'required';
-        }
         return [
             'name' => ['required',Rule::unique('users','name')->ignore($this->id)],
             'role_id' => 'required',
             'email' => 'email|required',
-            'password' => $password ?? ''
+            'userPhoto' =>'image',
+            'password' => $this->method() == 'POST' ? 'required|min:6|confirmed' : 'confirmed'
         ];
     }
 }

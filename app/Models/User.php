@@ -16,6 +16,8 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    public $folder = "users images";
+    public $default_avatar ="default user.png";
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +29,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
+        'userPhoto'
     ];
 
     protected $filters = [
@@ -74,6 +77,15 @@ class User extends Authenticatable
     {
         return Attribute::make(
             set: fn ($value) =>Hash::make($value),
+        );
+    }
+
+    public function userPhoto() :Attribute
+    {
+        return Attribute::make(
+            get: fn ($userPhoto)=> is_null($userPhoto) ?
+                $this->folder . '/' . $this->default_avatar :
+                $this->folder . '/' . $userPhoto
         );
     }
 }

@@ -17,8 +17,8 @@ use App\Http\Controllers\admin\HomeController;
 */
 
 
-
-Route::get('login', [AuthController::class, 'index'])->middleware('guest');
+Route::view('/','soon');
+Route::get('login', [AuthController::class, 'index'])->name('getLogin')->middleware('guest');
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::group(['middleware' => 'auth'],function (){
     Route::get('dashboard',[HomeController::class,'index'])->name('dashboard');
@@ -26,7 +26,6 @@ Route::group(['middleware' => 'auth'],function (){
     Route::get('logout',[AuthController::class,'destroy'])->name('logout');
     Route::resource('roles',RolesController::class);
     Route::resource('users', UserController::class);
-
 });
 
 

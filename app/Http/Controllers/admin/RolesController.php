@@ -30,10 +30,12 @@ class RolesController extends Controller
      */
     public function index()
     {
-        if (!$this->authorize('roles'))
+
+        if (!$this->authorize('roles')){
             abort(405);
+        }
         if (\request()->ajax()){
-            $data = Role::select('id','name')->get();
+            $data = Role::select('id','name')->withCount('users')->get();
             return Datatables::of($data)->make(true);
         }
         return view('admin.roles.roles');
