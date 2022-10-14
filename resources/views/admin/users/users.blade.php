@@ -63,7 +63,6 @@
                     {data: 'email', name: 'email'},
                     {data: 'photo', name: 'photo',
                         render:function (data) {
-                        console.log(data)
                             return `<img style="width: 30px;height: 30px;" src="${data}" alt="user-image"/>`
                         }
                     },
