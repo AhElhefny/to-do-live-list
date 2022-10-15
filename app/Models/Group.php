@@ -13,7 +13,8 @@ class Group extends Model
     public static $folder = "group_images";
     public $default_avatar ="default_user.png";
     protected $fillable = ['name','description','type','status','image','user_id'];
-    protected $appends = ['type_text','status_text'];
+    protected $appends = ['type_text','status_text','user_name_text'];
+    public $filters = ['block','status'];
 
     protected static function booted()
     {
@@ -32,8 +33,18 @@ class Group extends Model
         );
     }
 
+    public function description():Attribute{
+        return Attribute::make(
+            get: fn ($val)=> \Str::limit($val,40,'...')
+        );
+    }
+
     public function user(){
         return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function groups(){
+        return $this->hasMany(Task::class,'group_id');
     }
 
     public function getTypeTextAttribute($value){
@@ -42,5 +53,23 @@ class Group extends Model
 
     public function getStatusTextAttribute($value){
         return get_group_status_text($this->status);
+    }
+
+    public function getUserNameTextAttribute($value){
+        return optional($this->user)->hasRole('super_admin') ? 'anonymous' : optional($this->user)->name;
+    }
+
+    public function scopeOfBlock($query,$val){
+        if (empty($val) && $val != 0){
+            return $query;
+        }
+       return $query->where('blocked',(string)$val);
+    }
+
+    public function scopeOfStatus($query,$val){
+        if (empty($val) && $val != 0){
+            return $query;
+        }
+        return $query->where('status',(string)$val);
     }
 }

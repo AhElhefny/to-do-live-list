@@ -6,6 +6,8 @@ use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\GroupController;
+use App\Http\Controllers\admin\TasksController;
+use App\Http\Controllers\admin\ComunityController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +30,8 @@ Route::group(['middleware' => 'auth'],function (){
     Route::resource('roles',RolesController::class);
     Route::resource('users', UserController::class);
     Route::resource('groups', GroupController::class);
+    Route::resource('tasks', TasksController::class);
+    Route::get('community/groups', [ComunityController::class,'groups']);
 });
 
 

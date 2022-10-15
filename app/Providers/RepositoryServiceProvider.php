@@ -21,6 +21,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $models = $this->getModels();
         $models[] = 'Role';
+        $models[] = 'Comunity';
         foreach ($models as $model) {
             $this->app->bind(
                 "App\Repositories\Contracts\I{$model}Repository",

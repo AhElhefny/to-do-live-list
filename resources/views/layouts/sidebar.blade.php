@@ -113,5 +113,40 @@
                 </div>
             </li>
         @endcan
+        @can('groups')
+            <li class="nav-item menu-items">
+                <a class="nav-link" data-toggle="collapse" href="#tasks" aria-expanded="false" aria-controls="auth">
+              <span class="menu-icon">
+                <i class="mdi mdi-security"></i>
+              </span>
+                    <span class="menu-title">Tasks</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="tasks">
+                    <ul class="nav flex-column sub-menu">
+                        @can('groups')
+                            <li class="nav-item"> <a class="nav-link" href="{{route('tasks.index')}}">Tasks List</a></li>
+                        @endcan
+                        @can('add groups')
+                            <li class="nav-item"> <a class="nav-link" href="{{route('tasks.create')}}">Add Task</a></li>
+                        @endcan
+                    </ul>
+                </div>
+            </li>
+        @endcan
+        <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#comunity" aria-expanded="false" aria-controls="auth">
+              <span class="menu-icon">
+                <i class="mdi mdi-security"></i>
+              </span>
+                <span class="menu-title">Community</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="comunity">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{url('community/groups')}}">Community Groups</a></li>
+                </ul>
+            </div>
+        </li>
     </ul>
 </nav>

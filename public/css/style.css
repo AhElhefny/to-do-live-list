@@ -21149,4 +21149,19 @@ div.tagsinput {
     color: #fff;
     border:none
 }
+.comunity-group-span{
+    font-size: 14px !important;
+}
+.comunity-group-span-row{
+    font-size: 10px !important;
+}
+.pagination{
+    justify-content: center !important;
+}
+.pagination div span,nav[role='navigation'] div a{
+    background-color: transparent !important;
+}
+.pagination div{
+    margin-bottom: 10px !important;
+}
 /*# sourceMappingURL=maps/style.css.map */

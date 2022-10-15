@@ -42,6 +42,11 @@ class PermissionsSeeder extends Seeder
             ['guard_name' => 'web' , 'name' => 'edit groups'],
             ['guard_name' => 'web' , 'name' => 'show groups'],
             ['guard_name' => 'web' , 'name' => 'delete groups'],
+            ['guard_name' => 'web' , 'name' => 'tasks'],
+            ['guard_name' => 'web' , 'name' => 'add tasks'],
+            ['guard_name' => 'web' , 'name' => 'edit tasks'],
+            ['guard_name' => 'web' , 'name' => 'show tasks'],
+            ['guard_name' => 'web' , 'name' => 'delete tasks'],
         ];
         $role = Role::create([
             'name' => 'super_admin'

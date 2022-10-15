@@ -499,7 +499,7 @@ abstract class AbstractModelRepository implements IModelRepository
         }
 
         if ($limit) {
-            return $query->take($limit)->get();
+            return $query->paginate($limit);
         }
 
         return $query->get();

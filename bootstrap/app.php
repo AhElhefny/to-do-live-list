@@ -13,7 +13,6 @@
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
-
 $data = [];
 
 if (!file_exists(base_path('vars.txt'))) {
