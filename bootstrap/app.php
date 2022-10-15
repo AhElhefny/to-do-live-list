@@ -10,10 +10,29 @@
 | the IoC container for the system binding all of the various parts.
 |
 */
-
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
+
+$data = [];
+
+if (!file_exists(base_path('vars.txt'))) {
+    $fp = fopen(base_path() . "/vars.txt", "wb");
+    fwrite($fp, '.env');
+    fclose($fp);
+}
+
+    $vars_text = file_get_contents(base_path('vars.txt'));
+    foreach (explode("\n", $vars_text) as $key=>$line){
+        $data[$key] = explode(',', $line);
+    }
+
+    if (!trim($vars_text)){
+        file_put_contents(base_path('vars.txt'), '.env');
+        $data[0][0] = '.env';
+    }
+
+$app->loadEnvironmentFrom($data[0][0]);
 
 /*
 |--------------------------------------------------------------------------

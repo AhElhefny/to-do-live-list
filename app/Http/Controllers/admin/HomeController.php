@@ -4,6 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Dotenv\Dotenv;
+use Illuminate\Support\Facades\Artisan;
 use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller

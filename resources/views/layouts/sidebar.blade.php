@@ -92,5 +92,26 @@
             </div>
         </li>
         @endcan
+        @can('groups')
+            <li class="nav-item menu-items">
+                <a class="nav-link" data-toggle="collapse" href="#groups" aria-expanded="false" aria-controls="auth">
+              <span class="menu-icon">
+                <i class="mdi mdi-security"></i>
+              </span>
+                    <span class="menu-title">Groups</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="groups">
+                    <ul class="nav flex-column sub-menu">
+                        @can('groups')
+                            <li class="nav-item"> <a class="nav-link" href="{{route('groups.index')}}">Groups List</a></li>
+                        @endcan
+                        @can('add groups')
+                            <li class="nav-item"> <a class="nav-link" href="{{route('groups.create')}}">Add Group</a></li>
+                        @endcan
+                    </ul>
+                </div>
+            </li>
+        @endcan
     </ul>
 </nav>

@@ -1,0 +1,94 @@
+#_misk.env_#
+APP_NAME="Hamel Almesk"
+APP_ENV=local
+APP_KEY=base64:ctRZldk6rPm4P3kXfRYAWD2KsavwISi0EirdcDBKbX8=
+APP_DEBUG=true
+
+SITE_NAME_EN="Hamel Almesk"
+SITE_NAME_AR="حامل المسك"
+
+ADMIN_URL=https://sis.hamelalmesk.com
+APP_URL=https://parent.sis.hamelalmesk.com
+SITE_URL=hamelalmesk.com
+
+LOG_CHANNEL=daily
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+
+#sms|ahlia|ages|fajr
+DB_DATABASE=ahmedtask
+DB_USERNAME=root
+DB_PASSWORD=
+
+FILESYSTEM_DRIVER=public
+BROADCAST_DRIVER=pusher
+CACHE_DRIVER=file
+QUEUE_CONNECTION=redis
+SESSION_DRIVER=file
+SESSION_LIFETIME=120
+
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+MAIL_DRIVER=sendgrid
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+SENDGRID_API_KEY=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
+
+AWS_ACCESS_KEY_ID=AKIA2NGSNAQKSUAMLDE7
+AWS_SECRET_ACCESS_KEY=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
+AWS_DEFAULT_REGION=me-south-1
+AWS_BUCKET=schoolna
+
+PUSHER_APP_ID=938481
+PUSHER_APP_KEY=9295a33c1b518d0afa73
+PUSHER_APP_SECRET=829f247e08b5c563ad89
+PUSHER_APP_CLUSTER=eu
+
+FIREBASE_SERVER_KEY=
+
+BUGSNAG_API_KEY=63b19666a13377eb51400231623e04db
+
+# MS Graph Variables #################################################################
+MSGRAPH=false
+
+DEFAULT_MSGRAPH_PASSWORD="A@12345678"
+DEFAULT_STUDENT_PASSWORD="123456"
+DEFAULT_PARENT_PASSWORD="123456"
+DEFAULT_TEACHER_PASSWORD="123123"
+
+# OAUTH_APP_ID="1e0dace4-1232-4e00-9679-b3e25215c3ec"
+# OAUTH_APP_PASSWORD="p._.Mk4Gr5Ukzh8legW-.zA70_kI0BHk-c"
+# OAUTH_TENANT_ID="0ac82207-7f91-4787-8c57-b0875f1aa377"
+# LICENSE_FACULTY_SKUID="94763226-9b3c-4e75-a931-5c89701abe66"
+# LICENSE_STUDENT_SKUID="314c4481-f395-4525-be8b-2ec4bb1e9d91"
+
+ OAUTH_REDIRECT_URI="${APP_URL}/callback"
+ OAUTH_REDIRECT_URI_SPA="${ADMIN_URL}"
+ OAUTH_AUTHORITY=https://login.microsoftonline.com/
+ OAUTH_AUTHORIZE_ENDPOINT=/oauth2/v2.0/authorize
+ OAUTH_TOKEN_ENDPOINT=/oauth2/v2.0/token
+ OAUTH_SCOPES="openid profile offline_access eduroster.read eduroster.readwrite eduroster.readbasic user.read calendars.read.shared calendars.readwrite.shared calendars.read calendars.readwrite directory.accessasuser.All directory.Read.All directory.readwrite.all email onlinemeetings.read onlinemeetings.readwrite user.read.all user.readbasic.all user.readwrite user.readwrite.all"
+
+# VueJS Variables #################################################################
+
+PASSWORD_CLIENT_ID=1
+PASSWORD_CLIENT_SECRET=mQLrv1Lg0slqV9PB9J86HsoH5o95dJ6HlABbVyJp
+#PASSWORD_CLIENT_ID=211
+#PASSWORD_CLIENT_SECRET=tfWyBZQvW8mDvnXs1bc7rAOzCnNgTCY2AVN5vsri1BDaUbqxWcoGAcs81gF33iPdZIzYG0nNzD4o4gZLMTgtcNQQS47gXSkgpCxa1B94d0efxFp3Pe5ewcel
+
+MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
+MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
+
+MIX_MSGRAPH="${MSGRAPH}"
+MIX_MSGRAPH_OAUTH_APP_ID="${OAUTH_APP_ID}"
+MIX_MSGRAPH_OAUTH_REDIRECT_URI_SPA="${OAUTH_REDIRECT_URI_SPA}"
+MIX_MSGRAPH_OAUTH_SCOPES="${OAUTH_SCOPES}"
+
+MIX_VUE_APP_ROOT_API="${ADMIN_URL}/admin/v1"

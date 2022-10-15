@@ -3,7 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Carbon\Carbon;
+use App\Traits\ModelTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,9 +15,9 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
-    public static $folder = "users images";
-    public $default_avatar ="default user.png";
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, ModelTrait;
+    public static $folder = "users_images";
+    public $default_avatar ="default_user.png";
 
     /**
      * The attributes that are mass assignable.
@@ -32,9 +32,6 @@ class User extends Authenticatable
         'userPhoto'
     ];
 
-    protected $filters = [
-        'id'
-    ];
 
 
     /**
@@ -56,23 +53,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-
-    public function getFilters()
-    {
-        return $this->filters ?? [];
-    }
-
-    public function scopeOfId($query,$id){
-        return $query;
-    }
-
-    protected function createdAt(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => Carbon::parse($value)->format('Y-m-d'),
-        );
-    }
 
     protected function password(): Attribute
     {

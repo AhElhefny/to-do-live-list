@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\admin\HomeController;
+use App\Http\Controllers\admin\GroupController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,6 +27,7 @@ Route::group(['middleware' => 'auth'],function (){
     Route::get('logout',[AuthController::class,'destroy'])->name('logout');
     Route::resource('roles',RolesController::class);
     Route::resource('users', UserController::class);
+    Route::resource('groups', GroupController::class);
 });
 
 

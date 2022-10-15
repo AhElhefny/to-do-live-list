@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Repositories\Contracts\IUserRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 use App\Http\Services\HelperTrait;
 
@@ -48,7 +47,6 @@ class UserController extends AdminBaseController
         $user = $this->userRepo->create($data);
         $user->assignRole($request->input('role_id'));
         return redirect()->route('users.index');
-
     }
 
     public function edit($id){

@@ -37,6 +37,11 @@ class PermissionsSeeder extends Seeder
             ['guard_name' => 'web' , 'name' => 'edit role'],
             ['guard_name' => 'web' , 'name' => 'show role'],
             ['guard_name' => 'web' , 'name' => 'delete role'],
+            ['guard_name' => 'web' , 'name' => 'groups'],
+            ['guard_name' => 'web' , 'name' => 'add groups'],
+            ['guard_name' => 'web' , 'name' => 'edit groups'],
+            ['guard_name' => 'web' , 'name' => 'show groups'],
+            ['guard_name' => 'web' , 'name' => 'delete groups'],
         ];
         $role = Role::create([
             'name' => 'super_admin'
@@ -44,7 +49,7 @@ class PermissionsSeeder extends Seeder
         $user = User::create([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
-            'password' => bcrypt(123456),
+            'password' => bcrypt('password'),
             'role_id' => $role->id,
         ]);
         Permission::insert($permissions);
