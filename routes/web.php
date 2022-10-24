@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'],function (){
     Route::resource('tasks', TasksController::class);
     Route::get('community/groups', [ComunityController::class,'groups']);
     Route::get('notifications/read-all', [UserController::class,'readAllNotifications']);
+    Route::get('notifications/read-notification/{id}', [UserController::class,'readOneNotification']);
     Route::get('notifications/delete-read', [UserController::class,'deleteReadedNotifications']);
 });
 

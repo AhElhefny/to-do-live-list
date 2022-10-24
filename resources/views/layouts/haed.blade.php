@@ -109,8 +109,8 @@
                     <h6 class="p-3 mb-0">Notifications</h6>
                     <div class="dropdown-divider"></div>
 
-                    @foreach(auth()->user()->notifications as $notification)
-                        <a class="dropdown-item preview-item">
+                    @forelse(auth()->user()->notifications as $notification)
+                        <a href="{{url('notifications/read-notification/'.$notification->id)}}" class="dropdown-item preview-item">
                             <div class="preview-thumbnail">
                                 <div class="preview-icon bg-dark rounded-circle">
                                     <span style="font-size: 10px;text-transform: uppercase">{{$notification->data['model']}}</span>
@@ -118,14 +118,26 @@
                             </div>
                             <div class="preview-item-content">
                                 <p class="preview-subject mb-1">{{$notification->data['name']}}</p>
-                                <p class="text-muted ellipsis mb-0">{{$notification->data['status']}} ( {{$notification->data['type']}} )</p>
+                                <p class="text-muted ellipsis mb-0">{{$notification->data['status']}}
+                                    ( {{$notification->data['type']}} ) <span style="font-size: 13px;padding: 4px;text-transform: capitalize;" class="badge rounded-pill @if($notification->read_at) badge-outline-danger @else badge-outline-success @endif">{{$notification->read_at ? 'Read' : 'New'}}</span></p>
                             </div>
                         </a>
                         <div class="dropdown-divider"></div>
-                    @endforeach
+                    @empty
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item preview-item">
+                            <div class="preview-item-content">
+                                <p class="preview-subject mb-1">There Is No Notifications</p>
+                            </div>
+                        </a>
+                    @endforelse
                     <div>
-                        <p class="p-3 mb-0 text-center"><a href="{{url('notifications/read-all')}}">Read all notifications</a></p>
-                        <p class="p-3 mb-0 text-center"><a href="{{url('notifications/delete-read')}}">Delete Read notifications</a></p>
+                        @if(auth()->user()->unreadNotifications()->count())
+                            <p class="p-3 mb-0 text-center"><a href="{{url('notifications/read-all')}}">Read all notifications</a></p>
+                        @endif
+                        @if(auth()->user()->notifications()->whereNotNull('read_at')->count())
+                            <p class="p-3 mb-0 text-center"><a href="{{url('notifications/delete-read')}}">Delete Read notifications</a></p>
+                        @endif
                     </div>
                 </div>
             </li>

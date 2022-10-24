@@ -107,6 +107,11 @@ class UserController extends AdminBaseController
         auth()->user()->unreadNotifications->markAsRead();
         return back()->with(['success' => 'All Notifications Read']);
     }
+    public function readOneNotification($id){
+        auth()->user()->unreadNotifications->where('id', $id)->markAsRead();
+        return back()->with(['success' => 'Notification Read']);
+    }
+
 
     public function deleteReadedNotifications(){
         auth()->user()->notifications()->whereNotNull('read_at')->delete();
