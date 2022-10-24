@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminBaseController;
 use App\Http\Requests\GroupRequest;
 use App\Http\Services\HelperTrait;
 use App\Models\Group;
+use App\Notifications\GeneralNotification;
 use App\Repositories\Contracts\IGroupRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -45,7 +46,9 @@ class GroupController extends AdminBaseController
         $data['image'] = $request->file('image') ?
             $this->storeImage($request->file('image'),Group::$folder) : null;
 
-        $this->groupRepo->create($data);
+        $group = $this->groupRepo->create($data);
+        auth()->user()->notify(new GeneralNotification($group,'group','created'));
+
         return redirect()->route('groups.index')->with('success','Group added successfully');
     }
 
@@ -79,6 +82,8 @@ class GroupController extends AdminBaseController
             $data['image'] = $this->storeImage($request->file('image'),Group::$folder);
         }
         $this->groupRepo->update($group,$data);
+        auth()->user()->notify(new GeneralNotification($group,'group','updated'));
+
         return redirect()->route('groups.index')->with('Group updated successfully');
     }
 

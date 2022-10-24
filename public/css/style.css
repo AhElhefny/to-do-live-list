@@ -21165,3 +21165,11 @@ div.tagsinput {
     margin-bottom: 10px !important;
 }
 /*# sourceMappingURL=maps/style.css.map */
+.navbar .navbar-menu-wrapper .count-indicator .count{
+    width: 20px !important;
+    height: 15px !important;
+}
+
+.navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .dropdown-menu.navbar-dropdown{
+    width: 300px !important;
+}

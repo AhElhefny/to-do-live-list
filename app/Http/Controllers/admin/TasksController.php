@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TasksRequest;
 use App\Http\Services\HelperTrait;
 use App\Models\Task;
+use App\Notifications\GeneralNotification;
 use App\Repositories\Contracts\IGroupRepository;
 use App\Repositories\Contracts\ITaskRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class TasksController extends AdminBaseController
 {
@@ -54,7 +56,9 @@ class TasksController extends AdminBaseController
         $data['image'] = $request->file('image') ?
             $this->storeImage($request->file('image'),Task::$folder) : null;
 
-        $this->taskRepo->create($data);
+        $task = $this->taskRepo->create($data);
+        auth()->user()->notify(new GeneralNotification($task,'task','created'));
+
         return redirect()->route('tasks.index')->with('success','Task added successfully');
     }
 
@@ -100,6 +104,8 @@ class TasksController extends AdminBaseController
             $data['image'] = $this->storeImage($request->file('image'),Task::$folder);
         }
         $this->groupRepo->update($task,$data);
+        auth()->user()->notify(new GeneralNotification($task,'task','updated'));
+
         return redirect()->route('tasks.index')->with('success','Task updated successfully');
     }
 

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\AdminBaseController;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Notifications\GeneralNotification;
 use App\Repositories\Contracts\IUserRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Spatie\Permission\Models\Role;
 use App\Http\Services\HelperTrait;
 
@@ -99,5 +101,15 @@ class UserController extends AdminBaseController
         $this->userRepo->deleteUserImageIfExist($user);
         $this->userRepo->remove($user);
         return back()->with(['success' => 'User deleted successfully']);
+    }
+
+    public function readAllNotifications(){
+        auth()->user()->unreadNotifications->markAsRead();
+        return back()->with(['success' => 'All Notifications Read']);
+    }
+
+    public function deleteReadedNotifications(){
+        auth()->user()->notifications()->whereNotNull('read_at')->delete();
+        return back()->with(['success' => 'All Notifications Read Is Deleted']);
     }
 }
